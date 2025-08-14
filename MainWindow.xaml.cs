@@ -1,5 +1,4 @@
-﻿
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using DesignPattern.DesignPatterns;
 
@@ -22,7 +21,14 @@ public partial class MainWindow : Window
             { "单例模式", 单例模式.Run },
             { "工厂模式", 工厂模式.Run },
             { "观察者模式", 观察者模式.Run },
-            { "责任链模式", 责任链模式.Run }
+            { "责任链模式", 责任链模式.Run },
+            { "策略模式", 策略模式.Run },
+            { "装饰器模式", 装饰器模式.Run },
+            { "适配器模式", 适配器模式.Run },
+            { "代理模式", 代理模式.Run },
+            { "命令模式", 命令模式.Run },
+            { "模板方法模式", 模板方法模式.Run },
+            { "状态模式", 状态模式.Run }
         };
 
         CreateButtons();
