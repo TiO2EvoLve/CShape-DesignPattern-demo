@@ -43,9 +43,8 @@ public partial class MainWindow : Window
             {
                 Content = kvp.Key,
                 Tag = kvp.Key,
-                Height = 40,
+                Height = 50,
                 Width = 100,
-                Background= new SolidColorBrush(Colors.DeepSkyBlue),
                 Margin = new Thickness(5)
             };
             btn.Click += PatternButton_Click;

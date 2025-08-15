@@ -4,47 +4,54 @@ public class 工厂模式
 {
     public static void Run()
     {
-        IProduct productA = SimpleFactory.CreateProduct("A");
+        // 注册所有可用产品类型
+        ProductFactory.Register<ProductA>("A");
+        ProductFactory.Register<ProductB>("B");
+
+        // 使用工厂创建产品
+        IProduct productA = ProductFactory.Create("A");
         productA.Operation();
 
-        IProduct productB = SimpleFactory.CreateProduct("B");
+        IProduct productB = ProductFactory.Create("B");
         productB.Operation();
     }
 }
-public class ConcreteProductA : IProduct
-{
-    public void Operation()
-    {
-        Console.WriteLine("生产A产品");
-    }
-}
 
-// 具体产品类B
-public class ConcreteProductB : IProduct
-{
-    public void Operation()
-    {
-        Console.WriteLine("生产B产品");
-    }
-}
-
-// 简单工厂类
-public class SimpleFactory
-{
-    public static IProduct CreateProduct(string type)
-    {
-        switch (type)
-        {
-            case "A":
-                return new ConcreteProductA();
-            case "B":
-                return new ConcreteProductB();
-            default:
-                throw new ArgumentException("没有这种产品");
-        }
-    }
-}
+// 产品接口
 public interface IProduct
 {
-    void Operation(); 
+    void Operation();
+}
+
+// 具体产品实现
+public class ProductA : IProduct
+{
+    public void Operation() => Console.WriteLine("生产A产品");
+}
+
+public class ProductB : IProduct
+{
+    public void Operation() => Console.WriteLine("生产B产品");
+}
+
+// 厂类
+public static class ProductFactory
+{
+    private static readonly Dictionary<string, Func<IProduct>> _products = new();
+
+    // 注册产品类型
+    public static void Register<T>(string type) where T : IProduct, new()
+    {
+        _products[type] = () => new T();
+    }
+
+    // 创建产品
+    public static IProduct Create(string type)
+    {
+        if (_products.TryGetValue(type, out var creator))
+        {
+            return creator();
+        }
+        throw new ArgumentException($"没有'{type}'这种产品");
+    }
 }
