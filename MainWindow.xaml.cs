@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using DesignPattern.DesignPatterns;
 
 namespace DesignPattern;
@@ -27,7 +28,7 @@ public partial class MainWindow : Window
             { "适配器模式", 适配器模式.Run },
             { "代理模式", 代理模式.Run },
             { "命令模式", 命令模式.Run },
-            { "模板方法模式", 模板方法模式.Run },
+            { "模板模式", 模板方法模式.Run },
             { "状态模式", 状态模式.Run }
         };
 
@@ -43,6 +44,8 @@ public partial class MainWindow : Window
                 Content = kvp.Key,
                 Tag = kvp.Key,
                 Height = 40,
+                Width = 100,
+                Background= new SolidColorBrush(Colors.DeepSkyBlue),
                 Margin = new Thickness(5)
             };
             btn.Click += PatternButton_Click;

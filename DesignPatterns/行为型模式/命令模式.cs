@@ -16,20 +16,15 @@
             void Execute();
         }
 
-        public class ConcreteCommand : ICommand
+        private class ConcreteCommand(Receiver receiver) : ICommand
         {
-            private readonly Receiver _receiver;
-            public ConcreteCommand(Receiver receiver)
-            {
-                _receiver = receiver;
-            }
             public void Execute()
             {
-                _receiver.Action();
+                receiver.Action();
             }
         }
 
-        public class Receiver
+        private class Receiver
         {
             public void Action()
             {
@@ -37,16 +32,11 @@
             }
         }
 
-        public class Invoker
+        private class Invoker(ICommand command)
         {
-            private readonly ICommand _command;
-            public Invoker(ICommand command)
-            {
-                _command = command;
-            }
             public void ExecuteCommand()
             {
-                _command.Execute();
+                command.Execute();
             }
         }
     }

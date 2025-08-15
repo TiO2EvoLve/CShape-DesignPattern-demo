@@ -9,12 +9,12 @@
             subject.Request();
         }
 
-        public interface ISubject
+        private interface ISubject
         {
             void Request();
         }
 
-        public class RealSubject : ISubject
+        private class RealSubject : ISubject
         {
             public void Request()
             {
@@ -22,12 +22,12 @@
             }
         }
 
-        public class Proxy : ISubject
+        private class Proxy : ISubject
         {
-            private RealSubject _realSubject;
+            private RealSubject? _realSubject;
             public void Request()
             {
-                if (_realSubject == null) _realSubject = new RealSubject();
+                _realSubject ??= new RealSubject();
                 Console.WriteLine("代理前置处理");
                 _realSubject.Request();
                 Console.WriteLine("代理后置处理");
