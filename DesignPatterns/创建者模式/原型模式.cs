@@ -1,4 +1,4 @@
-﻿namespace DesignPattern.DesignPatterns;
+﻿namespace DesignPattern.DesignPatterns.创建者模式;
 
 public class 原型模式
 {
@@ -25,14 +25,14 @@ public interface IPrototype<out T>
 //游戏角色类，实现原型接口
 public class GameCharacter(string name, int level, string weapon) : IPrototype<GameCharacter>
 {
-    public string Name { get; set; } = name;
-    public int Level { get; set; } = level;
-    public string Weapon { get; set; } = weapon;
+    private string Name { get; set; } = name;
+    private int Level { get; set; } = level;
+    private string Weapon { get; set; } = weapon;
 
     // 克隆方法（浅拷贝）
     public GameCharacter Clone(string name, int level, string weapon)
     {
-        GameCharacter gameCharacter = (GameCharacter)this.MemberwiseClone();
+        GameCharacter gameCharacter = (GameCharacter)MemberwiseClone();
         gameCharacter.Name = name;
         gameCharacter.Level = level;
         gameCharacter.Weapon = weapon;

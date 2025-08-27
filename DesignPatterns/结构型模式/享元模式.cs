@@ -1,4 +1,4 @@
-﻿namespace DesignPattern.DesignPatterns;
+﻿namespace DesignPattern.DesignPatterns.结构型模式;
 
 public class 享元模式
 {

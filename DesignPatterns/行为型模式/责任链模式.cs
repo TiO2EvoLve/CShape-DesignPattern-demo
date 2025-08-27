@@ -1,4 +1,4 @@
-﻿namespace DesignPattern.DesignPatterns;
+﻿namespace DesignPattern.DesignPatterns.行为型模式;
 
 public class 责任链模式
 {
