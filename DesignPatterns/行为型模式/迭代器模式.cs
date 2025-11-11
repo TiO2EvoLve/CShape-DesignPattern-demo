@@ -32,13 +32,11 @@ public class ConcreteAggregate<T> : IAggregate<T>
     public IIterator<T> CreateIterator() => new ConcreteIterator<T>(_items);
 }
 
-public class ConcreteIterator<T> : IIterator<T>
+public class ConcreteIterator<T>(List<T> items) : IIterator<T>
 {
-    private readonly List<T> _items;
     private int _index = -1;
-    public ConcreteIterator(List<T> items) => _items = items;
-    public bool MoveNext() => ++_index < _items.Count;
-    public T Current => _items[_index];
+    public bool MoveNext() => ++_index < items.Count;
+    public T Current => items[_index];
     public void Reset() => _index = -1;
 }
 

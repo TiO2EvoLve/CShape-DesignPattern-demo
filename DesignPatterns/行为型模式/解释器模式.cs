@@ -19,39 +19,23 @@ public interface IExpression
     int Interpret(Dictionary<string, int> context);
 }
 
-public class NumberExpression : IExpression
+public class NumberExpression(int number) : IExpression
 {
-    private readonly int _number;
-    public NumberExpression(int number) => _number = number;
-    public int Interpret(Dictionary<string, int> context) => _number;
+    public int Interpret(Dictionary<string, int> context) => number;
 }
 
-public class VariableExpression : IExpression
+public class VariableExpression(string name) : IExpression
 {
-    private readonly string _name;
-    public VariableExpression(string name) => _name = name;
-    public int Interpret(Dictionary<string, int> context) => context[_name];
+    public int Interpret(Dictionary<string, int> context) => context[name];
 }
 
-public class AddExpression : IExpression
+public class AddExpression(IExpression left, IExpression right) : IExpression
 {
-    private readonly IExpression _left, _right;
-    public AddExpression(IExpression left, IExpression right)
-    {
-        _left = left;
-        _right = right;
-    }
-    public int Interpret(Dictionary<string, int> context) => _left.Interpret(context) + _right.Interpret(context);
+    public int Interpret(Dictionary<string, int> context) => left.Interpret(context) + right.Interpret(context);
 }
 
-public class SubtractExpression : IExpression
+public class SubtractExpression(IExpression left, IExpression right) : IExpression
 {
-    private readonly IExpression _left, _right;
-    public SubtractExpression(IExpression left, IExpression right)
-    {
-        _left = left;
-        _right = right;
-    }
-    public int Interpret(Dictionary<string, int> context) => _left.Interpret(context) - _right.Interpret(context);
+    public int Interpret(Dictionary<string, int> context) => left.Interpret(context) - right.Interpret(context);
 }
 

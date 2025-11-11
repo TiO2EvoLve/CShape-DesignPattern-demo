@@ -4,7 +4,7 @@ public class 访问者模式
 {
     public static void Run()
     {
-        List<IElement> elements = new() { new ElementA(), new ElementB() };
+        List<IElement> elements = [new ElementA(), new ElementB()];
         IVisitor visitor = new ConcreteVisitor();
         foreach (var e in elements)
             e.Accept(visitor);

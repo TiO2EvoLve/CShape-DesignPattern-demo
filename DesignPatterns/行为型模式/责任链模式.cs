@@ -13,28 +13,21 @@ public class 责任链模式
         handlerA.SetNext(handlerB).SetNext(handlerC);
 
         // 定义请求
-        object[] requests = { "A 问题", "B 问题", "C 问题", "D 问题" };
+        object[] requests = ["A 问题", "B 问题", "C 问题", "D 问题"];
 
         // 遍历请求并传递给责任链处理
         foreach (object request in requests)
         {
             Console.WriteLine($"Client: 谁能处理 {request}?");
             object result = handlerA.Handle(request);
-            if (result != null)
-            {
-                Console.WriteLine($"  {result}");
-            }
-            else
-            {
-                Console.WriteLine($"  {request} 没人能处理！");
-            }
+            Console.WriteLine(result != null ? $"{result}" : $"{request}没人能处理！");
         }
     }
 }
 public abstract class AbstractHandler : IHandler
 {
     // 下一个处理者
-    private IHandler nextHandler;
+    private IHandler? nextHandler;
 
     public IHandler SetNext(IHandler handler)
     {
@@ -50,11 +43,9 @@ public abstract class AbstractHandler : IHandler
             // 如果有下一个处理者，将请求传递给下一个处理者
             return this.nextHandler.Handle(request);
         }
-        else
-        {
-            // 没有下一个处理者，返回null
-            return null;
-        }
+        // 没有下一个处理者，返回null
+        return null;
+        
     }
 }
 public class ConcreteHandlerA : AbstractHandler

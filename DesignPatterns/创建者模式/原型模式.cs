@@ -4,39 +4,45 @@ public class 原型模式
 {
     public static void Run()
     {
-        // 创建原始角色
-        GameCharacter warrior = new GameCharacter("战士A", 10, "长剑");
-        warrior.ShowInfo();
+        // 创建原型对象
+        GameCharacter warriorPrototype = new GameCharacter("战士", 10, "长剑");
+        // 基于原型克隆
+        GameCharacter warriorA = warriorPrototype.Clone();
+        warriorA.Name = "战士A";
+        warriorA.ShowInfo();
 
-        // 克隆一个角色，并修改部分属性
-        GameCharacter warriorClone = warrior.Clone("战士B",12,"战斧");
-        warriorClone.ShowInfo();
+        GameCharacter warriorB = warriorPrototype.Clone();
+        warriorB.Name = "战士B";
+        warriorB.Level = 12;
+        warriorB.Weapon = "战斧";
+        warriorB.ShowInfo();
 
-        // 再克隆
-        GameCharacter warriorClone2 = warrior.Clone("战士C",13,"战斧");
-        warriorClone2.ShowInfo();
+        GameCharacter warriorC = warriorPrototype.Clone();
+        warriorC.Name = "战士C";
+        warriorC.Level = 15;
+        warriorC.ShowInfo();
         
     }
 }
-public interface IPrototype<out T>
+
+// 原型接口
+public interface IPrototype<T>
 {
-    T Clone(string name, int level, string weapon);
+    T Clone();
 }
-//游戏角色类，实现原型接口
+
+// 游戏角色类，实现原型接口
 public class GameCharacter(string name, int level, string weapon) : IPrototype<GameCharacter>
 {
-    private string Name { get; set; } = name;
-    private int Level { get; set; } = level;
-    private string Weapon { get; set; } = weapon;
+    public string Name { get; set; } = name;
+    public int Level { get; set; } = level;
+    public string Weapon { get; set; } = weapon;
 
-    // 克隆方法（浅拷贝）
-    public GameCharacter Clone(string name, int level, string weapon)
+    // 克隆方法
+    public GameCharacter Clone()
     {
-        GameCharacter gameCharacter = (GameCharacter)MemberwiseClone();
-        gameCharacter.Name = name;
-        gameCharacter.Level = level;
-        gameCharacter.Weapon = weapon;
-        return gameCharacter;
+        // MemberwiseClone 是浅拷贝
+        return (GameCharacter)MemberwiseClone();
     }
 
     public void ShowInfo()

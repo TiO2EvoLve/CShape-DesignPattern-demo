@@ -15,12 +15,13 @@ public class 观察者模式
         station.SetTemperature(25.3f);
         station.SetTemperature(30.1f);
 
+        Console.WriteLine("用户B的手机取消订阅");
         display2.Unsubscribe(station);
 
         station.SetTemperature(22.8f);
     }
 }
-
+//用户手机
 public class PhoneDisplay(string name)
 {
     public void Subscribe(WeatherStation station)
@@ -38,16 +39,14 @@ public class PhoneDisplay(string name)
         Console.WriteLine($"[{name}] 收到天气更新：当前温度为 {temperature}°C");
     }
 }
+//气象站
 public class WeatherStation
 {
-    public event Action<float> OnTemperatureChanged;
-
-    private float temperature;
-
+    public event Action<float>? OnTemperatureChanged;
+    
     public void SetTemperature(float temp)
     {
         Console.WriteLine($"\n[WeatherStation] 温度更新为：{temp}°C");
-        temperature = temp;
-        OnTemperatureChanged?.Invoke(temperature); // 通知所有订阅者
+        OnTemperatureChanged?.Invoke(temp); // 通知所有订阅者
     }
 }

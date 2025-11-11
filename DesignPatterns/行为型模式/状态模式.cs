@@ -33,14 +33,9 @@ public class ConcreteStateB : State
     }
 }
 
-public class Context
+public class Context(State state)
 {
-    public State State { get; set; }
-
-    public Context(State state)
-    {
-        State = state;
-    }
+    public State State { get; set; } = state;
 
     public void Request()
     {
